@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rong.dao.ClassInfoDao">
+
+    <!--查询全部类型信息-->
+    <select id="queryClassInfoAll" resultType="com.rong.pojo.ClassInfo">
+        select * from class_info
+        <where>
+            <if test="name!=null">
+                and name like '%${name}%'
+            </if>
+        </where>
+        order by id asc
+    </select>
+
+    <!--添加图书类型-->
+    <insert id="addTypeSubmit" parameterType="classInfo">
+        insert into class_info (name, remarks) values (#{name}, #{remarks})
+    </insert>
+
+    <!--根据id查询记录信息-->
+    <select id="queryClassInfoById" parameterType="int" resultType="classInfo">
+        select * from class_info where id=#{id}
+    </select>
+
+    <!--修改图书类型-->
+    <update id="updateTypeSubmit" parameterType="classInfo">
+       update class_info set name=#{name}, remarks=#{remarks} where id=#{id}
+    </update>
+
+    <!--根据ids（一个或多个id）删除记录信息-->
+    <delete id="deleteTypeByIds" parameterType="List">
+        delete from class_info where id in
+        <foreach collection="list" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+</mapper>

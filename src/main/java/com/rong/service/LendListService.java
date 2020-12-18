@@ -1,0 +1,31 @@
+package com.rong.service;
+
+import com.github.pagehelper.PageInfo;
+import com.rong.pojo.LendList;
+
+import java.util.List;
+
+public interface LendListService {
+
+    //分页查询
+    PageInfo<LendList> queryLendListAll(LendList lendList,int page, int limit);
+
+    //添加借阅记录
+    void andLendListSubmit(LendList lendList);
+
+    //获取已经借阅书的数量
+    int queryBookNum(int readerId);
+
+    //删除
+    int deleteLendListByIds(List<String> ids, List<String> bookIds);     //借阅ids,图书bookIds
+
+    //还书
+    int updateLendListSubmit(List<String> ids, List<String> bookIds);
+
+    //异常还书
+    void backBook(LendList lendList);
+
+    //时间线查询
+    List<LendList> queryLookBookList(Integer rid, Integer bid);
+
+}
